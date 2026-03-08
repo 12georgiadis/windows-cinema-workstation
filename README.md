@@ -1,6 +1,6 @@
 # Windows RTX 5090 Cinema Workstation - Full Install Log
 
-**Date:** 8 mars 2026, 00h27 - 00h54 (27 minutes)
+**Date:** 8 mars 2026, 00h27 - 03h35 (Session 1: 27 min + Session 2: ~2h30 ongoing)
 **Machine:** Windows 11, NVIDIA GeForce RTX 5090 32GB VRAM, Driver 591.74
 **Method:** Claude Code (Opus 4.6) via Pinokio - fully automated, zero manual intervention
 **Operator:** Ismael Joffroy Chandoutis (@12georgiadis)
@@ -11,13 +11,16 @@
 
 | Category | Count | Time |
 |----------|-------|------|
-| Pinokio apps/repos cloned | **77** | ~15 min |
+| Pinokio apps/repos cloned | **146** | ~20 min |
 | Windows apps installed (winget) | **72** | ~20 min (parallel) |
 | Python packages installed | **164** | ~5 min |
 | Node.js global packages | **6** | ~1 min |
-| Ollama LLM models downloaded | **4** | ~10 min (parallel) |
+| Ollama LLM models | **6** | ~30 min (parallel) |
+| ComfyUI custom nodes | **95** | ~10 min |
+| ComfyUI models (checkpoints, upscalers, etc.) | **22+** | ~15 min |
+| LoRA training tools | **5** | ~5 min |
 | Silent installers executed | **2** | ~3 min |
-| **TOTAL installations** | **~325** | **~27 minutes** |
+| **TOTAL installations** | **~520+** | **Session 1: 27 min, Session 2: ongoing** |
 
 ---
 
@@ -90,7 +93,9 @@ Everything was installed by a single Claude Code (Opus 4.6) session running insi
 
 **Pre-existing:** Adobe Creative Cloud, Chrome, Edge, Brave, Discord, Slack, WhatsApp, Instagram, Canva, CapCut, Claude Desktop, ChatGPT, Notion, Perplexity, Bitwarden, 4K Video Downloader+, Apple TV/Devices/iCloud, Microsoft Teams, Parsec, Deno
 
-### Pinokio AI/Creative Apps (77 repos)
+### Pinokio AI/Creative Apps (146 repos)
+
+> **Session 2 additions:** 69 official Pinokio apps + ComfyUI ecosystem expansion
 
 #### AI Image/Video Generation
 | App | Source | Description |
@@ -191,11 +196,78 @@ Everything was installed by a single Claude Code (Opus 4.6) session running insi
 ### LLM Models (Ollama)
 | Model | Size | Use Case |
 |-------|------|----------|
-| Qwen3-235B MoE (Q4) | ~130GB | Best overall - 22B active, 147K context |
-| Qwen3-32B | ~20GB | Fast general purpose |
+| Qwen3.5-32B | ~20GB | Best creative writing FR+EN, SOTA mars 2026 |
+| Qwen3.5-14B | ~9GB | Fast creative, excellent multilingue |
 | DeepSeek R1 32B | ~20GB | Chain-of-thought reasoning |
-| Qwen3-8B | ~5GB | Ultra-fast for simple tasks |
-| Mistral-Nemo-12B-Abliterated | ~8GB | Uncensored |
+| Mistral-Nemo 12B | ~8GB | Excellent français natif |
+| Dolphin3-abliterated | ~5GB | Uncensored creative (scénario gore/sexuel) |
+| Mistral-Nemo-abliterated | ~8GB | Uncensored français |
+
+### ComfyUI Custom Nodes (95 nodes)
+
+#### Core & Essential
+ComfyUI-Manager, Impact Pack, IPAdapter Plus, WAS Node Suite, Essentials, Custom Scripts, KJNodes, Crystools, Easy-Use, rgthree, Comfyroll, workspace-manager
+
+#### Image Generation & Control
+SUPIR (upscaler), CCSR, x-flux, Flux2Wrapper, Z-Image, Flux2Fun ControlNet, ControlAltAI (Flux Union), FluxTrainer, Fluxtapoz (Kontext), PuLID (face ID), InstantID, PixArt, layerdiffuse, SeeCoder, sdxl_prompt_styler, Shakker Nodes
+
+#### Video Generation
+WanVideoWrapper, Wan2.2Wrapper, HunyuanVideoWrapper, CogVideoXWrapper, LTXVideo, LTXTricks, FramePackWrapper, DynamiCrafterWrapper, AnimateDiff Evolved, Steerable Motion, TemporalKit, Frame Interpolation, Optical Flow, VideoHelperSuite, LatentSyncWrapper, PainterLongVideo, RAVE, StableAudioX
+
+#### ControlNet & Preprocessing
+Advanced ControlNet, DepthAnythingV2, Marigold, controlnet_aux, SAM2, segment_anything, Florence2, BiRefNet
+
+#### Face & Portrait
+reactor (face swap), FaceAnalysis, facerestore, LivePortraitKJ, AdvancedLivePortrait, IC-Light
+
+#### Upscaling
+UltimateSDUpscale, TiledDiffusion, TiledKSampler, SeedVR2 VideoUpscaler, image-resize
+
+#### 3D
+Hunyuan3D-2.1, Hunyuan3DWrapper, StableCascade
+
+#### Animation & Effects
+Deforum, Deforum-X-Flux, Disco Diffusion, ArtGallery, Color Transfer, Latent Modifiers, differential-diffusion, Noise, FizzNodes, LayerForge
+
+#### Utilities
+anynode, cg-use-everywhere, cg-image-picker, Image Saver, prompt-control, prompt-reader-node, ProfilerX, yaResolutionSelector, masquerade, sd-dynamic-thresholding, Inpaint-CropAndStitch, GGUF, CivitAI, Qwen-VL-API, nunchaku-nodes, efficiency-nodes, stable-audio-tools
+
+### LoRA Training Tools (5)
+| Tool | Strength |
+|------|----------|
+| kohya_ss | Reference avancée, meilleure généralisation |
+| SimpleTuner | Précision low VRAM (Optimum-Quanto) |
+| OneTrainer | Masked training, text-encoder |
+| FluxGym | GUI simple (Kohya + AI-Toolkit) |
+| ai-toolkit (Ostris) | Le plus simple pour Flux |
+
+### ComfyUI Models
+| Model | Type | Size |
+|-------|------|------|
+| Flux 1 Dev BnB NF4 | Checkpoint | 12GB |
+| Flux 1 Schnell FP8 | Checkpoint | 11GB |
+| Flux 2 Dev FP8 Mixed | Diffusion | downloading |
+| Flux 2 Turbo LoRA | LoRA | downloading |
+| Flux 2 Klein 4B | Diffusion | downloading |
+| Flux 2 VAE + Text Encoders | VAE/TE | done |
+| Z-Image BF16 + VAE + TE | Full stack | downloading |
+| LTX 2.3 Distilled | Video | downloading |
+| LTX 2.3 Spatial/Temporal Upscaler | Upscaler | downloading |
+| HunyuanVideo 720 FP8 | Video | 13GB |
+| FramePack I2V HY FP8 | Video | done |
+| Wan 2.2 Fun Control 14B FP8 | Video | done |
+| Wan 2.2 I2V 14B FP8 | Video | done |
+| Flux 1 Kontext FP8 | Editing | done |
+| Flux 1 Fill Dev | Inpainting | done |
+| Qwen Image 7B FP8 | Image Gen | done |
+| ACE-Step v1 3.5B | Music | done |
+| SD 1.5 Pruned | Checkpoint | downloading |
+| SDXL Base 1.0 | Checkpoint | downloading |
+| SDXL Refiner 1.0 | Checkpoint | 5.7GB |
+| 4x-UltraSharp | Upscaler | 64MB |
+| RealESRGAN x4plus | Upscaler | 64MB |
+| RealESRGAN x4plus anime | Upscaler | 18MB |
+| ControlNet ProMax | ControlNet | 2.4GB |
 
 ### Python Packages (164 total, key ones)
 - **AI/ML:** anthropic, openai, google-generativeai, replicate, huggingface-hub, sentence-transformers, langchain
@@ -210,14 +282,16 @@ Everything was installed by a single Claude Code (Opus 4.6) session running insi
 
 ## What Makes This Insane
 
-1. **27 minutes** from zero to a fully equipped cinema AI workstation
+1. **520+ total installations** across 8+ different package managers/methods
 2. **Zero manual clicks** - everything automated via Claude Code CLI
-3. **~325 total installations** across 6 different package managers/methods
-4. **Massive parallelization** - up to 10 concurrent background installs
-5. **Intelligent profiling** - Claude analyzed GitHub repos to determine exact needs
-6. **Cross-ecosystem** - Windows apps, Python venvs, Node packages, Ollama models, Pinokio scripts
-7. **Production-grade** - not toy installs, these are professional cinema/AI tools
-8. **RTX 5090 optimized** - PyTorch CUDA 13.0, xformers, proper GPU acceleration
+3. **Massive parallelization** - up to 15 concurrent background installs
+4. **Intelligent profiling** - Claude analyzed GitHub repos to determine exact needs
+5. **Cross-ecosystem** - Windows apps, Python venvs, Node packages, Ollama models, Pinokio scripts, HuggingFace models, ComfyUI nodes
+6. **Production-grade** - professional cinema/AI tools, not toy installs
+7. **RTX 5090 optimized** - PyTorch CUDA 13.0, xformers, proper GPU acceleration
+8. **SOTA March 2026** - Flux 2, LTX 2.3, Z-Image, Qwen 3.5, Wan 2.2, latest everything
+9. **Shared model architecture** - Pinokio Drive symlinks = zero duplication across interfaces
+10. **Training-ready** - 5 LoRA trainers, FluxTrainer node, full training pipeline
 
 ### The Pipeline
 ```
@@ -228,13 +302,15 @@ Pinokio (app launcher)
     -> git clone (Pinokio apps, batch)
     -> pip/uv (Python packages)
     -> npm (Node packages)
-    -> ollama (LLM models)
+    -> ollama (LLM models, full path)
+    -> huggingface_hub (model downloads)
     -> pterm (Pinokio install scripts)
     -> curl (direct downloads)
     -> cmd.exe /S (silent installers)
+    -> cp -r (Pinokio official examples)
 ```
 
-This is what happens when you give an AI agent full system access and tell it to go. The entire Windows machine went from a bare Pinokio + ComfyUI setup to a complete professional filmmaker's AI workstation in under 30 minutes.
+This is what happens when you give an AI agent full system access and tell it to go. The entire Windows machine went from a bare Pinokio + ComfyUI setup to a complete professional filmmaker's AI workstation - the kind of setup that would take a human team days to configure.
 
 ---
 
